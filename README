@@ -1,0 +1,22 @@
+Passenger (mod_rails) puppet module
+-----------------------------------
+
+This puppet module handles a passenger setup, it installs the
+packages, and configures some munin graphs.
+
+Dependencies
+------------
+
+This module expects you to have the munin module installed.
+
+Getting started
+---------------
+
+Simply do 'include passenger' and it will be installed. 
+
+If you need to install a specific version of passenger or
+librack-ruby, you can specify the version to be installed by providing
+a variable, for example:
+
+$passenger_ensure_version = "2.2.3-2~bpo50+1"
+$librack-ruby_ensure_version = "1.0.0-2~bpo50+1"
