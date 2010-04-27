@@ -12,7 +12,7 @@
 # providing a variable, for example:
 #
 # $passenger_ensure_version = "2.2.3-2~bpo50+1"
-# $librack-ruby_ensure_version = "1.0.0-2~bpo50+1"
+# $librack_ensure_version = "1.0.0-2~bpo50+1"
 
 class passenger {
 
@@ -24,10 +24,10 @@ class passenger {
     }
   }
   if !defined(Package["librack-ruby"]) {
-    if $librack-ruby_ensure_version == '' { $librack-ruby_ensure_version = 'installed' }
+    if $librack_ensure_version == '' { $librack_ensure_version = 'installed' }
     package {
     "librack-ruby":
-      ensure => $librack-ruby_ensure_version;
+      ensure => $librack_ensure_version;
     }
   }
 
