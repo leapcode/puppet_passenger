@@ -31,6 +31,10 @@ class passenger {
     }
   }
 
+  apache2::module {
+    "passenger": ensure => present, require_package => "libapache2-mod-passenger";
+  }
+  
   munin::plugin::deploy {
     'passenger_memory_stats':
       source => "passenger/munin/passenger_memory_stats",
