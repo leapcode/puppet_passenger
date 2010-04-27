@@ -32,9 +32,9 @@ class passenger {
   }
 
   munin::plugin::deploy {
-    'passenger_mem':
-      source => "passenger/munin/passenger_mem",
-      config => "user root";
+    'passenger_memory_stats':
+      source => "passenger/munin/passenger_memory_stats",
+      config => "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats";
     'passenger_stats':
       source => "passenger/munin/passenger_stats",
       config => "user root";
