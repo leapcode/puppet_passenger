@@ -31,20 +31,12 @@ class passenger {
     }
   }
 
-  file {
-    "/usr/local/share/munin-plugins/passenger_mem":
-      source => [ "puppet://$server/modules/site-passenger/munin/passenger_mem",
-                  "puppet://$server/modules/passenger/munin/passenger_mem" ],
-      mode => 0755, owner => root, group => root;
-
-    "/usr/local/share/munin-plugins/passenger_stats":
-      source => [ "puppet://$server/modules/site-passenger/munin/passenger_stats",
-                  "puppet://$server/modules/passenger/munin/passenger_stats" ],
-      mode => 0755, owner => root, group => root;
-  }
-
-  munin::plugin { [ passenger_mem, passenger_stats ]:
-    config => "user root",
-    script_path_in => "/usr/local/share/munin-plugins";
+  munin::plugin::deploy {
+    'passenger_mem':
+      source => "passenger/munin/passenger_mem",
+      config => "user root";
+    'passenger_stats':
+      source => "passenger/munin/passenger_stats",
+      config => "user root";
   }
 }
