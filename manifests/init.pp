@@ -6,15 +6,18 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License version 3 as
 # published by the Free Software Foundation.
-#
-# If you need to install a specific version of passenger or
-# librack-ruby, you can specify the version to be installed by
-# providing a variable, for example:
-#
-# $passenger_ensure_version = "2.2.3-2~bpo50+1"
-# $librack_ensure_version = "1.0.0-2~bpo50+1"
 
 class passenger {
+
+  $real_passenger_memory_munin_config = $passenger_memory_munin_config ? {
+    '' => "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats",
+    default => $passenger_memory_munin_config,
+  }
+
+  $real_passenger_stats_munin_config = $passenger_stats_munin_config ? {
+    '' => "user root",
+    default => $passenger_stats_munin_config,
+  }
 
   if !defined(Package["libapache2-mod-passenger"]) {
     if $passenger_ensure_version == '' { $passenger_ensure_version = 'installed' }
@@ -38,9 +41,16 @@ class passenger {
   munin::plugin::deploy {
     'passenger_memory_stats':
       source => "passenger/munin/passenger_memory_stats",
-      config => "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats";
+      config => $real_passenger_memory_munin_config;
     'passenger_stats':
       source => "passenger/munin/passenger_stats",
-      config => "user root";
+      config => $real_passenger_stats_munin_config;
+  }
+}
+
+test::deploy {
+    'passenger_memory_stats':
+      source => "test/deploythis",
+      config => $passenger_munin_config
   }
 }
