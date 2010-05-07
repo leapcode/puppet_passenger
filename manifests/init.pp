@@ -9,14 +9,12 @@
 
 class passenger {
 
-  $real_passenger_memory_munin_config = $passenger_memory_munin_config ? {
-    '' => "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats",
-    default => $passenger_memory_munin_config,
+  case $passenger_memory_munin_config { '':
+    { $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats" }
   }
 
-  $real_passenger_stats_munin_config = $passenger_stats_munin_config ? {
-    '' => "user root",
-    default => $passenger_stats_munin_config,
+  case $passenger_stats_munin_config { '':
+    { $passenger_stats_munin_config = "user root\n" }
   }
 
   if !defined(Package["libapache2-mod-passenger"]) {
@@ -41,9 +39,9 @@ class passenger {
   munin::plugin::deploy {
     'passenger_memory_stats':
       source => "passenger/munin/passenger_memory_stats",
-      config => $real_passenger_memory_munin_config;
+      config => $passenger_memory_munin_config;
     'passenger_stats':
       source => "passenger/munin/passenger_stats",
-      config => $real_passenger_stats_munin_config;
+      config => $passenger_stats_munin_config;
   }
 }
