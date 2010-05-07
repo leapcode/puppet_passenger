@@ -47,10 +47,3 @@ class passenger {
       config => $real_passenger_stats_munin_config;
   }
 }
-
-test::deploy {
-    'passenger_memory_stats':
-      source => "test/deploythis",
-      config => $passenger_munin_config
-  }
-}
