@@ -30,4 +30,4 @@ If you need to set different munin plugin configuration values, you
 can also do so as follows:
 
 $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats /opt/bin/passenger-memory-stats"
-$passenger_stats_munin_config = "user root\nenv.PASSENGER_TMPDIR=/var/tmp\n"
+$passenger_stats_munin_config = "user root\nenv.PASSENGER_TMPDIR /var/tmp\n"
