@@ -18,7 +18,7 @@ This configuration section shows the defaults of the plugin:
   
 Options
   env.passenger_memory_stats '/path/to/passenger-memory-stats'  # Path to passenger memory status.
-  env.graph_category 'App'                                      # Graph Category. Defaults to App.
+  env.graph_category 'App'                                      # Graph Category. Defaults to Passenger.
 
 ln -s /usr/share/munin/plugins/passenger_memory_stats /etc/munin/plugins/passenger_memory_stats
 
@@ -45,7 +45,7 @@ MIT
 POD
 
 # Globals
-GRAPH_CATEGORY          = ENV['graph_category'] || 'App'
+GRAPH_CATEGORY          = ENV['graph_category'] || 'Passenger'
 PASSENGER_MEMORY_STATS  = ENV['passenger_memory_stats'] || '/usr/local/bin/passenger-memory-stats'
 
 # Check if this plugin can run
