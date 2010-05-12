@@ -1,4 +1,4 @@
-class passenger::base::debian inherits passenger::base {
+class passenger::debian inherits passenger::base {
 
   if !defined(Package["libapache2-mod-passenger"]) {
     if $passenger_ensure_version == '' { $passenger_ensure_version = 'installed' }
