@@ -27,7 +27,7 @@ class passenger {
   if !defined(Package["librack-ruby"]) {
     if $librack_ensure_version == '' { $librack_ensure_version = 'installed' }
     package {
-    "librack-ruby":
+    [ "librack-ruby", "librack-ruby1.8"] :
       ensure => $librack_ensure_version;
     }
   }
