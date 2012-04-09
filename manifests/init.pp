@@ -13,7 +13,21 @@ class passenger ( $use_gems = false, $use_munin = true )
   if $passenger_ensure_version == '' { $passenger_ensure_version = 'installed' }
   if $librack_ensure_version == '' { $librack_ensure_version = 'installed' }
 
-  if !$use_gems {
+  if $use_gems {
+    package {
+      "passenger":
+        provider => gem,
+        ensure => $passenger_ensure_version;
+    }
+    if !defined(Package["rack"]) {
+      package {
+        "rack":
+          provider => gem,
+          ensure => $librack_ensure_version;
+      }
+    }
+  }
+  else {
     if !defined(Package["libapache2-mod-passenger"]) {
       package {
         "libapache2-mod-passenger":
@@ -25,20 +39,6 @@ class passenger ( $use_gems = false, $use_munin = true )
       package {
         [ "librack-ruby", "librack-ruby1.8"] :
           ensure => $librack_ensure_version;
-      }
-    }
-    else {
-      package {
-        "passenger":
-          provider => gem,
-          ensure => $passenger_ensure_version;
-      }
-      if !defined(Package["rack"]) {
-        package {
-          "rack":
-            provider => gem,
-            ensure => $librack_ensure_version;
-        }
       }
     }
   }
