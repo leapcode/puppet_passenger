@@ -13,7 +13,7 @@ class passenger ( $use_gems = false, $use_munin = true )
   if $passenger_ensure_version == '' { $passenger_ensure_version = 'installed' }
   if $librack_ensure_version == '' { $librack_ensure_version = 'installed' }
 
-  if ! $use_gems {
+  if !$use_gems {
     if !defined(Package["libapache2-mod-passenger"]) {
       package {
         "libapache2-mod-passenger":
@@ -32,9 +32,13 @@ class passenger ( $use_gems = false, $use_munin = true )
         "passenger":
           provider => gem,
           ensure => $passenger_ensure_version;
-        "rack":
-          provider => gem,
-          ensure => $librack_ensure_version;
+      }
+      if !defined(Package["rack"]) {
+        package {
+          "rack":
+            provider => gem,
+            ensure => $librack_ensure_version;
+        }
       }
     }
   }
