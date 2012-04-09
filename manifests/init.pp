@@ -17,6 +17,7 @@ class passenger ( $use_gems = false, $use_munin = true )
     if !defined(Package["libapache2-mod-passenger"]) {
       package {
         "libapache2-mod-passenger":
+          alias => 'passenger',
           ensure => $passenger_ensure_version;
       }
     }
@@ -39,7 +40,7 @@ class passenger ( $use_gems = false, $use_munin = true )
   }
   
   apache2::module {
-    "passenger": ensure => present, require_package => "libapache2-mod-passenger";
+    "passenger": ensure => present, require_package => "passenger";
   }
 
   if $use_munin {
