@@ -37,7 +37,15 @@ class passenger (
         ensure => $librack_ensure_version;
     }
   }
-  
+
+  apache::config::file { 'mod_passenger':
+    ensure => present,
+    source => [ "puppet://${server}/modules/site_passenger/${fqdn}/mod_passenger.conf",
+                "puppet://${server}/modules/site_passenger/mod_passenger.conf",
+                "puppet://${server}/modules/passenger/mod_passenger.conf",
+              ],
+  }
+
   if $use_munin {
     case $passenger_memory_munin_config { '':
       { $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats" }
