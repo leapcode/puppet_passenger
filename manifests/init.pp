@@ -14,8 +14,7 @@ class passenger (
 {
 
   if ! $use_gems {
-    class { 'apache::module':
-      module => 'passenger',
+    apache::module { 'passenger':
       ensure => $passenger_ensure_version,
       package_name => 'libapache2-mod-passenger';
     }
