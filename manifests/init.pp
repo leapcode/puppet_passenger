@@ -10,7 +10,8 @@
 class passenger (
   $use_gems = false, $use_munin = true,
   $passenger_ensure_version = 'installed',
-  $librack_ensure_version = 'installed' )
+  $librack_ensure_version = 'installed',
+  $passenger_bin_path = '/usr/sbin' )
 {
 
   if ! $use_gems {
@@ -48,11 +49,11 @@ class passenger (
 
   if $use_munin {
     case $passenger_memory_munin_config { '':
-      { $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats /usr/sbin/passenger-memory-stats" }
+      { $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats $passenger_bin_path/passenger-memory-stats" }
     }
 
     case $passenger_stats_munin_config { '':
-      { $passenger_stats_munin_config = "user root\n" }
+      { $passenger_stats_munin_config = "user root\nenv.passenger_status $passenger_bin_path/passenger-status" }
     }
 
     munin::plugin::deploy {
