@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+PASSENGER_STATUS = ENV['passenger_status'] || '/usr/local/bin/passenger-status'
+
 def output_config
   puts <<-END
 graph_category Passenger
@@ -16,7 +18,7 @@ END
 end
 
 def output_values
-  status = `/usr/sbin/passenger-status`
+  status = `#{PASSENGER_STATUS}`
   unless $?.success?
     $stderr.puts "failed executing passenger-status"
     exit 1
