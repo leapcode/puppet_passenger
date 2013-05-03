@@ -8,8 +8,10 @@ Dependencies
 ------------
 
 This module expects you to have:
- . munin module 
  . apache module
+
+Optional:
+ . munin module
 
 Getting started
 ---------------
@@ -23,8 +25,15 @@ If you need to install a specific version of passenger or
 librack-ruby, you can specify the version to be installed by providing
 a variable, for example:
 
-$passenger_ensure_version = "2.2.3-2~bpo50+1"
-$librack-ruby_ensure_version = "1.0.0-2~bpo50+1"
+class { 'passenger': 
+  passenger_ensure_version => '2.2.23-2~bpo50+1',
+  librack-ruby_ensure_version = "1.0.0-2~bpo50+1"
+}
+
+If you wish to use gems, pass 'use_gems => true'.
+
+By default munin will be used, but you can disable that by passing
+'use_munin => false'.
 
 If you need to set different munin plugin configuration values, you
 can also do so as follows:

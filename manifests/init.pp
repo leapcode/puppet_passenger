@@ -20,11 +20,15 @@ class passenger (
       ensure => $passenger_ensure_version,
       package_name => 'libapache2-mod-passenger';
     }
-    
+
     if !defined(Package["librack-ruby"]) {
-      package {
-        [ "librack-ruby", "librack-ruby1.8"] :
+      if $::lsbdistcodename == 'squeeze' {
+        package { 'librack-ruby1.8': ensure => $librack_ensure_version }
+      }
+      else {
+        package { 'ruby-rack':
           ensure => $librack_ensure_version;
+        }
       }
     }
   }
