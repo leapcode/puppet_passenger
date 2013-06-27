@@ -35,11 +35,11 @@ class passenger (
   else {
     package {
       'passenger':
-        ensure   => $passenger_ensure_version;
-        provider => gem,
+        ensure   => $passenger_ensure_version,
+        provider => gem;
       'rack':
-        ensure   => $librack_ensure_version;
-        provider => gem,
+        ensure   => $librack_ensure_version,
+        provider => gem;
     }
   }
 
