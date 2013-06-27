@@ -61,13 +61,13 @@ class passenger (
     }
   }
 
-    munin::plugin::deploy {
-      'passenger_memory_stats':
-        source => 'passenger/munin/passenger_memory_stats',
-        config => $passenger_memory_munin_config;
-      'passenger_stats':
-        source => 'passenger/munin/passenger_stats',
-        config => $passenger_stats_munin_config;
-    }
+  munin::plugin::deploy {
+    'passenger_memory_stats':
+      source => 'passenger/munin/passenger_memory_stats',
+      config => $passenger_memory_munin_config;
+    'passenger_stats':
+      source => 'passenger/munin/passenger_stats',
+      config => $passenger_stats_munin_config;
   }
 }
+
