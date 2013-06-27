@@ -13,7 +13,7 @@ class passenger (
   $librack_ensure_version = 'installed',
   $passenger_bin_path = '/usr/sbin' )
 {
-  include ::apache
+  Class['::apache'] -> Class['passenger']
 
   if ! $use_gems {
     apache::module { 'passenger':
