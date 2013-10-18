@@ -22,10 +22,6 @@ class passenger (
 
   if ! $use_gems {
 
-    package { $passenger_package:
-      ensure => $passenger_ensure_version
-    }
-
     apache::module { 'passenger':
       ensure       => $passenger_ensure_version,
       package_name => $passenger_package;
