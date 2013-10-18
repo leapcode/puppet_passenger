@@ -15,16 +15,11 @@ class passenger (
 {
   Class['::apache'] -> Class['passenger']
 
-  $passenger_package = $::lsbdistcodename ? {
-    'squeeze' => 'libapache2-mod-passenger',
-    default   => 'ruby-passenger'
-  }
-
   if ! $use_gems {
 
     apache::module { 'passenger':
       ensure       => $passenger_ensure_version,
-      package_name => $passenger_package;
+      package_name => 'libapache2-mod-passenger';
     }
 
     if !defined(Package['librack-ruby']) {
