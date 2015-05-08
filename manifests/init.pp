@@ -8,7 +8,7 @@
 # published by the Free Software Foundation.
 
 class passenger (
-  $use_gems = false, $use_munin = true,
+  $use_gems = false, $manage_munin = false,
   $passenger_ensure_version = 'installed',
   $librack_ensure_version = 'installed',
   $passenger_bin_path = '/usr/sbin' )
@@ -52,7 +52,7 @@ class passenger (
               ],
   }
 
-  if $use_munin {
+  if $manage_munin {
     if $passenger_memory_munin_config == '' {
       $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats $passenger_bin_path/passenger-memory-stats"
     }
