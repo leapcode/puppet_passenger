@@ -54,21 +54,22 @@ class passenger (
 
   if $manage_munin {
     if $passenger_memory_munin_config == '' {
-      $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats $passenger_bin_path/passenger-memory-stats"
+      $passenger_memory_munin_config = "user root\nenv.passenger_memory_stats ${passenger_bin_path}/passenger-memory-stats"
     }
 
     if $passenger_stats_munin_config == '' {
-      $passenger_stats_munin_config = "user root\nenv.passenger_status $passenger_bin_path/passenger-status"
+      $passenger_stats_munin_config = "user root\nenv.passenger_status ${passenger_bin_path}/passenger-status"
+    }
+
+    munin::plugin::deploy {
+      'passenger_memory_stats':
+        source => 'passenger/munin/passenger_memory_stats',
+        config => $passenger_memory_munin_config;
+      'passenger_stats':
+        source => 'passenger/munin/passenger_stats',
+        config => $passenger_stats_munin_config;
     }
   }
 
-  munin::plugin::deploy {
-    'passenger_memory_stats':
-      source => 'passenger/munin/passenger_memory_stats',
-      config => $passenger_memory_munin_config;
-    'passenger_stats':
-      source => 'passenger/munin/passenger_stats',
-      config => $passenger_stats_munin_config;
-  }
 }
 
